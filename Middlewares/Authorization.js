@@ -7,7 +7,7 @@ const authorization = (req, res, next) => {
   } else {
     const token = req.headers.authorization.split(" ")[1];
 
-    jwt.verify(token, process.env.secret, function (err, decoded) {
+    jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
       console.log("authorization",decoded);
       if (err) {
         res.send("please login");

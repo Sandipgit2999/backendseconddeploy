@@ -3,7 +3,7 @@ const { UserModel } = require("../Models/User.model");
 require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
-const secret = process.env.secret;
+const secret = process.env.SECRET_KEY;
 const bcrypt = require("bcrypt");
 const { Router } = require("express");
 
