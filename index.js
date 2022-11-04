@@ -6,8 +6,10 @@ app.use(express.json());
 const { Usercontroller } = require("./Routes/User.route");
 const { Notecontroller } = require("./Routes/Note.route");
 const { authorization } = require("./Middlewares/Authorization");
+const cors=require("cors")
 const PORT = process.env.PORT|| 8080;
 
+app.use(cors())
 app.use("/user", Usercontroller);
 app.use(authorization);
 app.use("/notes", Notecontroller);
