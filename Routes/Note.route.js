@@ -1,4 +1,5 @@
 const { Router } = require("express");
+require("dotenv").config();
 
 const { NoteModel } = require("../Models/Notes.model");
 
@@ -6,9 +7,9 @@ const Notecontroller = Router();
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-  cloud_name: "du5yad6ea",
-  api_key: "666854984499736",
-  api_secret: "uf1Rucp0wwYjgCdaY_UrJC3rYuE",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
   secure: true,
 });
 
