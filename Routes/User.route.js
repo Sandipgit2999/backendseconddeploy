@@ -39,9 +39,11 @@ Usercontroller.post("/login", async (req, res) => {
   bcrypt.compare(password, hash, function (err, result) {
     if (err) {
       res.send("something went wrong");
-    } else {
+    } else if (result) {
       const token = jwt.sign({ userId: user.id, email: user.email }, secret);
       res.send({ msg: "successfully login", token: token });
+    } else {
+      res.send({ msg: "something is not good" });
     }
   });
 });
