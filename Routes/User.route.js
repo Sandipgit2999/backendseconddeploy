@@ -11,12 +11,9 @@ const Usercontroller = Router();
 
 Usercontroller.post("/signup", async (req, res) => {
   const { email, password } = req.body;
-  const payload = req.body;
-  //console.log(payload);
-
-  const present = await UserModel.findOne(email);
+  const present = await UserModel.findOne({email});
   if (present) {
-    res.send("user already created");
+    res.send({"msg":"user already created"});
   } else {
     bcrypt.hash(password, 10, async function (err, hash) {
       if (err) {
@@ -32,20 +29,23 @@ Usercontroller.post("/signup", async (req, res) => {
 
 Usercontroller.post("/login", async (req, res) => {
   const { email, password } = req.body;
-
   const user = await UserModel.findOne({ email });
-  console.log(user);
-  const hash = user.password;
-  bcrypt.compare(password, hash, function (err, result) {
-    if (err) {
-      res.send("something went wrong");
-    } else if (result) {
-      const token = jwt.sign({ userId: user.id, email: user.email }, secret);
-      res.send({ msg: "successfully login", token: token });
-    } else {
-      res.send({ msg: "something is not good" });
-    }
-  });
+  console.log("usersk-------", user);
+  if (user) {
+    const hash = user.password;
+    bcrypt.compare(password, hash, function (err, result) {
+      if (err) {
+        res.send("something went wrong");
+      } else if (result) {
+        const token = jwt.sign({ userId: user.id, email: user.email }, secret);
+        res.send({ msg: "successfully login", token: token });
+      } else {
+        res.send({ msg: "something is not good" });
+      }
+    });
+  } else {
+    res.send({ msg: "User not found please sign in first" });
+  }
 });
 
 module.exports = {
