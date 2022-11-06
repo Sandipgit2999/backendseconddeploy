@@ -14,7 +14,7 @@ Usercontroller.post("/signup", async (req, res) => {
   const payload = req.body;
   //console.log(payload);
 
-  const present = await UserModel.findOne(payload);
+  const present = await UserModel.findOne(email);
   if (present) {
     res.send("user already created");
   } else {
